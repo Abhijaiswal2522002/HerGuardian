@@ -1,0 +1,10 @@
+﻿@page
+@model HerGuardian.Pages.Account.RegisterModel
+@{
+}
+<form method="post">
+    <input asp-for="User.Name" placeholder="Name" />
+    <input asp-for="User.Email" placeholder="Email" />
+    <input asp-for="User.Password" type="password" placeholder="Password" />
+    <button type="submit">Register</button>
+</form>

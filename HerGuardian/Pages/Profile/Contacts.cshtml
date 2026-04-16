@@ -1,0 +1,35 @@
+﻿@page
+@model HerGuardian.Pages.Profile.ContactsModel
+@{
+}
+
+<h2>📞 Trusted Contacts</h2>
+
+<hr />
+
+<h3>Add Contact</h3>
+
+<form method="post">
+    <input asp-for="NewContact.Name" placeholder="Name" />
+    <input asp-for="NewContact.PhoneNumber" placeholder="Phone" />
+    <input asp-for="NewContact.Relation" placeholder="Relation" />
+    <button type="submit">Add</button>
+</form>
+
+
+<form method="post" asp-page-handler="Delete">
+    <input type="hidden" name="id" value="@c.Id" />
+    <button type="submit">Delete</button>
+</form>
+<hr />
+
+<h3>Your Contacts</h3>
+
+<ul>
+    @foreach (var c in Model.Contacts)
+    {
+        <li>
+            @c.Name (@c.Relation) - @c.PhoneNumber
+        </li>
+    }
+</ul>

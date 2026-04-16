@@ -1,0 +1,22 @@
+﻿@page
+@model HerGuardian.Pages.Profile.DashboardModel
+@{
+}
+
+<h3> Emergency</h3>
+
+<form method="post" asp-page-handler="SOS">
+    <button type="submit" style="background:red;color:white;padding:10px;">
+        SEND SOS
+    </button>
+</form>
+
+<hr />
+
+<h3>Quick Actions</h3>
+
+<ul>
+    <li><a href="/Contacts">Manage Trusted Contacts</a></li>
+    <li><a href="/Location">View Location</a></li>
+    <li><a href="/Logout">Logout</a></li>
+</ul>

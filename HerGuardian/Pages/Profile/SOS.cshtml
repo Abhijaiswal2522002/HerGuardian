@@ -1,0 +1,25 @@
+﻿@page
+@model HerGuardian.Pages.Profile.SOSModel
+@{
+}
+
+<h2 style="color:red;">🚨 Emergency SOS</h2>
+
+@if (TempData["Message"] != null)
+{
+    <p style="color:green">@TempData["Message"]</p>
+}
+
+<hr />
+
+<form method="post">
+    <button type="submit" style="
+        background:red;
+        color:white;
+        padding:20px;
+        font-size:20px;
+        border:none;
+        border-radius:10px;">
+        🚨 SEND SOS ALERT
+    </button>
+</form>
