@@ -1,35 +1,110 @@
-﻿@page
+@page
 @model HerGuardian.Pages.Profile.ContactsModel
 @{
+    ViewData["Title"] = "Trusted Contacts";
 }
 
-<h2>📞 Trusted Contacts</h2>
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="m-0">Trusted Network</h3>
+            <button class="btn glass text-primary fw-bold" data-bs-toggle="modal" data-bs-target="#addContactModal">
+                <i class="fas fa-plus me-2"></i>Add New
+            </button>
+        </div>
 
-<hr />
+        <div class="glass p-4 mb-4">
+            <h6 class="text-secondary mb-4 fw-bold small">VERIFIED CONTACTS (@Model.Contacts.Count)</h6>
+            
+            @if (!Model.Contacts.Any())
+            {
+                <div class="text-center py-5 opacity-50">
+                    <i class="fas fa-user-shield h1 mb-3"></i>
+                    <p>No contacts added yet.<br>Add your first trusted contact to enable SOS alerts.</p>
+                </div>
+            }
+            else
+            {
+                @foreach (var contact in Model.Contacts)
+                {
+                    <div class="contact-item d-flex align-items-center mb-4">
+                        <img src="https://ui-avatars.com/api/?name=@(contact.Name)&background=@(contact.Relation == "Family" ? "6366f1" : "a855f7")&color=fff" class="rounded-circle me-3" width="55">
+                        <div class="flex-grow-1">
+                            <div class="fw-bold h6 m-0">@contact.Name (@contact.Relation)</div>
+                            <div class="text-secondary small">@contact.PhoneNumber</div>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@contact.Id" onsubmit="return confirm('Remove this contact?')">
+                                <button class="btn btn-sm glass text-danger p-2 px-3"><i class="fas fa-trash"></i></button>
+                            </form>
+                            <button class="btn btn-sm glass text-white p-2 px-3"><i class="fas fa-phone"></i></button>
+                        </div>
+                    </div>
+                    @if (contact != Model.Contacts.Last())
+                    {
+                        <hr class="border-white border-opacity-10 my-4">
+                    }
+                }
+            }
+        </div>
+    </div>
 
-<h3>Add Contact</h3>
+    <div class="col-lg-5">
+        <h6 class="text-secondary mb-3 fw-bold small">EMERGENCY HELPLINES</h6>
+        <div class="glass p-4 mb-4">
+            <div class="helpline-card glass p-3 border-danger mb-3 d-flex align-items-center justify-content-between">
+                <div>
+                    <div class="text-danger h3 m-0">1091</div>
+                    <div class="small fw-bold">Women Helpline</div>
+                </div>
+                <button class="btn btn-danger rounded-circle p-3"><i class="fas fa-phone"></i></button>
+            </div>
+            <div class="helpline-card glass p-3 border-primary mb-3 d-flex align-items-center justify-content-between">
+                <div>
+                    <div class="text-primary h3 m-0">100</div>
+                    <div class="small fw-bold">Police Emergency</div>
+                </div>
+                <button class="btn btn-primary rounded-circle p-3"><i class="fas fa-phone"></i></button>
+            </div>
+        </div>
 
-<form method="post">
-    <input asp-for="NewContact.Name" placeholder="Name" />
-    <input asp-for="NewContact.PhoneNumber" placeholder="Phone" />
-    <input asp-for="NewContact.Relation" placeholder="Relation" />
-    <button type="submit">Add</button>
-</form>
+        <div class="glass p-4 text-center">
+            <i class="fas fa-bullhorn text-secondary mb-3 h3"></i>
+            <h6>Community Alerts</h6>
+            <p class="small text-secondary px-3">Your contacts are alerted automatically when you trigger an SOS.</p>
+        </div>
+    </div>
+</div>
 
-
-<form method="post" asp-page-handler="Delete">
-    <input type="hidden" name="id" value="@c.Id" />
-    <button type="submit">Delete</button>
-</form>
-<hr />
-
-<h3>Your Contacts</h3>
-
-<ul>
-    @foreach (var c in Model.Contacts)
-    {
-        <li>
-            @c.Name (@c.Relation) - @c.PhoneNumber
-        </li>
-    }
-</ul>
+<!-- Add Contact Modal -->
+<div class="modal fade" id="addContactModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass" style="border: 1px solid var(--glass-border);">
+            <div class="modal-header border-0">
+                <h5 class="modal-title brand-font">Add Trusted Contact</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form method="post">
+                    <div class="mb-3">
+                        <label class="small text-secondary fw-bold mb-2">FULL NAME</label>
+                        <input asp-for="NewContact.Name" class="hg-input" placeholder="e.g. Mom" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="small text-secondary fw-bold mb-2">PHONE NUMBER</label>
+                        <input asp-for="NewContact.PhoneNumber" class="hg-input" placeholder="+91 00000 00000" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="small text-secondary fw-bold mb-2">RELATIONSHIP</label>
+                        <select asp-for="NewContact.Relation" class="hg-input">
+                            <option value="Family">Family</option>
+                            <option value="Friend">Friend</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="hg-btn w-100 py-3">Save Contact</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

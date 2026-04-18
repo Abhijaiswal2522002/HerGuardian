@@ -1,0 +1,77 @@
+@page
+@model HerGuardian.Pages.Profile.SettingsModel
+@{
+    ViewData["Title"] = "System Settings";
+}
+
+<h3 class="mb-4">System Console</h3>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="glass p-4 mb-4">
+            <h6 class="text-secondary fw-bold mb-4 small">SECURITY PROTOCOLS</h6>
+            
+            <div class="setting-row d-flex align-items-center justify-content-between mb-4 p-3 glass">
+                <div class="d-flex align-items-center">
+                    <div class="icon-box bg-danger bg-opacity-10 text-danger me-4">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div>
+                        <div class="h6 m-0 fw-bold">Instant Emergency Call</div>
+                        <div class="text-secondary small">Dial 1091 automatically after SOS countdown</div>
+                    </div>
+                </div>
+                <div class="form-check form-switch h4 m-0">
+                    <input class="form-check-input" type="checkbox" checked>
+                </div>
+            </div>
+
+            <div class="setting-row d-flex align-items-center justify-content-between mb-4 p-3 glass">
+                <div class="d-flex align-items-center">
+                    <div class="icon-box bg-primary bg-opacity-10 text-primary me-4">
+                        <i class="fas fa-mask"></i>
+                    </div>
+                    <div>
+                        <div class="h6 m-0 fw-bold">App Chameleon Mode</div>
+                        <div class="text-secondary small">Change app icon and name to "Calculator"</div>
+                    </div>
+                </div>
+                <div class="form-check form-switch h4 m-0">
+                    <input class="form-check-input" type="checkbox">
+                </div>
+            </div>
+
+            <div class="setting-row d-flex align-items-center justify-content-between p-3 glass">
+                <div class="d-flex align-items-center">
+                    <div class="icon-box bg-success bg-opacity-10 text-success me-4">
+                        <i class="fas fa-satellite"></i>
+                    </div>
+                    <div>
+                        <div class="h6 m-0 fw-bold">Deep Location Tracking</div>
+                        <div class="text-secondary small">Update location every 30 seconds in background</div>
+                    </div>
+                </div>
+                <div class="form-check form-switch h4 m-0">
+                    <input class="form-check-input" type="checkbox" checked>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <h6 class="text-secondary mb-3 fw-bold small">COMMUNITY REPORTING</h6>
+        <div class="glass p-4 mb-4 text-center hover-lift cursor-pointer" onclick="showIncidentReport()">
+            <div class="icon-box mx-auto bg-secondary bg-opacity-10 text-secondary mb-3" style="width: 60px; height: 60px;">
+                <i class="fas fa-bullhorn h4 m-0" style="color: #a855f7"></i>
+            </div>
+            <h6 class="fw-bold">Submit Safety Report</h6>
+            <p class="text-secondary small mb-3">Report harassment, poor lighting, or unsafe transport anonymously.</p>
+            <div class="text-primary small fw-bold">Start Filing <i class="fas fa-arrow-right ms-1"></i></div>
+        </div>
+
+        <div class="glass p-4 text-center">
+            <div class="small text-secondary mb-1">DATA PRIVACY</div>
+            <p class="x-small text-secondary opacity-75 mb-0">Your location data is end-to-end encrypted and shared only with your chosen contacts during emergencies.</p>
+        </div>
+    </div>
+</div>

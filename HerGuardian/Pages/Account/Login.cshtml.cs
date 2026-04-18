@@ -40,7 +40,7 @@ namespace HerGuardian.Pages.Account
 
             await HttpContext.SignInAsync("Cookies", principal);
 
-            return RedirectToPage("/Dashboard");
+            return RedirectToPage("/Index");
 
         }
 

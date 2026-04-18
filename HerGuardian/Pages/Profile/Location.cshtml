@@ -1,0 +1,77 @@
+@page
+@model HerGuardian.Pages.Profile.LocationModel
+@{
+    ViewData["Title"] = "Live Tracking";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="m-0">Live Space Monitor</h3>
+    <div class="form-check form-switch glass p-2 px-4 d-flex align-items-center" style="border-radius: 30px;">
+        <input class="form-check-input me-3 mt-0" type="checkbox" id="live-share-toggle" checked>
+        <label class="form-check-label small fw-bold" for="live-share-toggle">Live Location Sharing</label>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div id="map" class="glass" style="height: 550px; border-radius: 20px;"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="glass p-4 mb-4">
+            <h6 class="text-secondary fw-bold mb-3 small">CURRENT COORDINATES</h6>
+            <div class="row text-center g-0">
+                <div class="col-6 border-end border-white border-opacity-10 pe-2">
+                    <div class="text-secondary x-small">LATITUDE</div>
+                    <div id="lat-display" class="h5 m-0 mt-1">28.7041° N</div>
+                </div>
+                <div class="col-6 ps-2">
+                    <div class="text-secondary x-small">LONGITUDE</div>
+                    <div id="lng-display" class="h5 m-0 mt-1">77.1025° E</div>
+                </div>
+            </div>
+        </div>
+
+        <h6 class="text-secondary mb-3 fw-bold small">NEARBY SAFE ZONES</h6>
+        <div class="safe-zone-list">
+            <div class="glass p-3 mb-3 border-start border-4 border-success hover-lift cursor-pointer">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="fw-bold">Police Station - Sector 12</div>
+                        <div class="text-secondary small">400m away • Highly Rated</div>
+                    </div>
+                    <i class="fas fa-chevron-right text-secondary"></i>
+                </div>
+            </div>
+            <div class="glass p-3 mb-3 border-start border-4 border-success hover-lift cursor-pointer">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="fw-bold">Public Library (24/7)</div>
+                        <div class="text-secondary small">650m away • CCTV Active</div>
+                    </div>
+                    <i class="fas fa-chevron-right text-secondary"></i>
+                </div>
+            </div>
+            <div class="glass p-3 mb-3 border-start border-4 border-warning hover-lift cursor-pointer">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="fw-bold">Central Cafe</div>
+                        <div class="text-secondary small">850m away • Caution Advised</div>
+                    </div>
+                    <i class="fas fa-chevron-right text-secondary"></i>
+                </div>
+            </div>
+        </div>
+        <button class="hg-btn w-100 mt-2 py-3">Update Safety Scores</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Ensure map is initialized on this page
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof initMap === 'function') {
+                initMap();
+            }
+        });
+    </script>
+}

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +19,14 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // ---------------- AUTH (we will use later) ----------------
 // (kept ready for next step)
 builder.Services.AddScoped<AuthService>();
-builder.Services.AddAuthentication();
+
+
+builder.Services.AddAuthentication("Cookies")
+    .AddCookie("Cookies", options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/Login";
+    });
 builder.Services.AddAuthorization();
 
 // ---------------- APP BUILD ----------------

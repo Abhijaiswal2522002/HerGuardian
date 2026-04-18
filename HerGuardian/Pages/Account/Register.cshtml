@@ -1,10 +1,45 @@
-﻿@page
+@page
 @model HerGuardian.Pages.Account.RegisterModel
 @{
+    ViewData["Title"] = "Register";
 }
-<form method="post">
-    <input asp-for="User.Name" placeholder="Name" />
-    <input asp-for="User.Email" placeholder="Email" />
-    <input asp-for="User.Password" type="password" placeholder="Password" />
-    <button type="submit">Register</button>
-</form>
+
+<div class="auth-card glass">
+    <div class="auth-header">
+        <i class="fas fa-shield-heart"></i>
+        <h2 class="brand-font">Join HerGuardian</h2>
+        <p class="text-secondary small">Empowering your safety, everywhere.</p>
+    </div>
+
+    <form method="post">
+        <div class="mb-3">
+            <label class="small text-secondary fw-bold mb-2">FULL NAME</label>
+            <input asp-for="User.Name" class="hg-input" placeholder="Your name" required />
+        </div>
+        <div class="mb-3">
+            <label class="small text-secondary fw-bold mb-2">EMAIL ADDRESS</label>
+            <input asp-for="User.Email" class="hg-input" placeholder="Enter your email" required />
+        </div>
+        <div class="mb-4">
+            <label class="small text-secondary fw-bold mb-2">CREATE PASSWORD</label>
+            <input asp-for="User.Password"
+                   type="password"
+                   class="hg-input"
+                   placeholder="••••••••"
+                   required />
+        </div>
+        
+        <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="terms" required checked>
+            <label class="form-check-label small text-secondary" for="terms">
+                I agree to the <a href="#" class="text-primary text-decoration-none fw-bold">Safety Terms</a> and Privacy Policy
+            </label>
+        </div>
+
+        <button type="submit" class="hg-btn w-100 py-3 mb-4">Protect My World</button>
+        
+        <div class="text-center text-secondary small">
+            Already a member? <a asp-page="/Account/Login" class="text-primary fw-bold text-decoration-none">Sign In</a>
+        </div>
+    </form>
+</div>

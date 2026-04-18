@@ -1,22 +1,87 @@
-﻿@page
+@page
 @model HerGuardian.Pages.Profile.DashboardModel
 @{
+    ViewData["Title"] = "Safety Monitor";
 }
 
-<h3> Emergency</h3>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="m-0 h4">Safety Monitor</h2>
+    <div class="glass p-2 px-3 d-flex align-items-center" style="border-radius: 30px;">
+        <div class="bg-success rounded-circle me-2 pulse-small" style="width: 8px; height: 8px;"></div>
+        <span style="font-size: 12px; font-weight: 600;">System Online</span>
+    </div>
+</div>
 
-<form method="post" asp-page-handler="SOS">
-    <button type="submit" style="background:red;color:white;padding:10px;">
-        SEND SOS
-    </button>
-</form>
+<div class="row g-4">
+    <!-- Center SOS (Mobile) / Left Side (Desktop) -->
+    <div class="col-lg-6">
+        <div class="glass p-5 d-flex flex-column align-items-center justify-content-center h-100">
+            <div class="sos-button-wrapper" id="sos-trigger">
+                <div class="sos-rings"></div>
+                <div class="sos-rings"></div>
+                <div class="sos-rings"></div>
+                <svg class="progress-ring" width="200" height="200">
+                    <circle class="progress-ring__circle" stroke="#ff4d4d" stroke-width="8" fill="transparent" r="90" cx="100" cy="100"/>
+                </svg>
+                <div class="sos-button pulse-red">SOS</div>
+            </div>
+            <p class="text-secondary mt-5 mb-1" style="font-size: 14px;">Press and hold for 1.5s to trigger</p>
+            <div id="sos-timer" class="d-none badge bg-danger p-2 px-3 mt-2" style="border-radius: 20px;">Alerting in 3...</div>
+        </div>
+    </div>
 
-<hr />
+    <!-- Right Side Stats & History (Desktop) -->
+    <div class="col-lg-6">
+        <div class="row gx-3">
+            <div class="col-sm-6 mb-3">
+                <div class="glass stat-card h-100">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="icon-box bg-primary bg-opacity-25 text-primary">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <span class="text-secondary small fw-bold">Contacts</span>
+                    </div>
+                    <div class="h5 m-0">3 Verified</div>
+                </div>
+            </div>
+            <div class="col-sm-6 mb-3">
+                <div class="glass stat-card h-100">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="icon-box bg-secondary bg-opacity-25 text-secondary">
+                            <i class="fas fa-map-marker-alt" style="color: #a855f7"></i>
+                        </div>
+                        <span class="text-secondary small fw-bold">Live GPS</span>
+                    </div>
+                    <div class="h5 m-0">Active</div>
+                </div>
+            </div>
+        </div>
 
-<h3>Quick Actions</h3>
-
-<ul>
-    <li><a href="/Contacts">Manage Trusted Contacts</a></li>
-    <li><a href="/Location">View Location</a></li>
-    <li><a href="/Logout">Logout</a></li>
-</ul>
+        <div class="glass p-4 h-100">
+            <div class="d-flex justify-content-between mb-4 align-items-center">
+                <h6 class="m-0 fw-bold">Recent Activity</h6>
+                <button class="btn btn-link link-primary p-0 text-decoration-none small">View All</button>
+            </div>
+            <div class="activity-list">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="rounded-circle bg-danger bg-opacity-10 text-danger d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px; flex-shrink: 0;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div>
+                        <div class="small fw-bold">Emergency Alert Triggered</div>
+                        <div class="text-secondary small">Sector 4, New Delhi • Yesterday, 10:45 PM</div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mb-4">
+                    <div class="rounded-circle bg-success bg-opacity-10 text-success d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px; flex-shrink: 0;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <div class="small fw-bold">Safety Check-in: Home</div>
+                        <div class="text-secondary small">Park Avenue • Apr 18, 08:30 PM</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

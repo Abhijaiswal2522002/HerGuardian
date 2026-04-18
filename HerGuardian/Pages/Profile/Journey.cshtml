@@ -1,0 +1,101 @@
+@page
+@model HerGuardian.Pages.Profile.JourneyModel
+@{
+    ViewData["Title"] = "Journey Shield";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="m-0">Journey Shield</h3>
+    <div class="glass p-2 px-3 small text-primary fw-bold">Active Shield</div>
+</div>
+
+<div class="row g-4 justify-content-center">
+    <div class="col-lg-6">
+        <!-- Active Journey UI -->
+        <div id="active-journey" class="d-none">
+            <div class="glass p-5 text-center mb-4 border-primary border-2">
+                <div class="display-4 text-primary fw-bold mb-2">18:42</div>
+                <div class="text-secondary small fw-bold text-uppercase mb-4">Target Arrival Time</div>
+                <div class="progress mb-4 bg-dark" style="height: 12px; border-radius: 10px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 65%;"></div>
+                </div>
+                <div class="d-flex justify-content-center gap-4 mb-4">
+                    <div>
+                        <div class="text-secondary x-small fw-bold">DESTINATION</div>
+                        <div class="h6">Home</div>
+                    </div>
+                    <div class="border-end border-white border-opacity-10"></div>
+                    <div>
+                        <div class="text-secondary x-small fw-bold">METHOD</div>
+                        <div class="h6">Uber Taxi</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <button class="hg-btn w-100 py-3" style="background: var(--safe-green)" id="btn-safe">I'm Safe - End</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn glass w-100 text-white py-3 shadow-sm" id="btn-extend">+10 Min Extension</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start Journey Form -->
+        <div id="journey-form">
+            <div class="glass p-5">
+                <h5 class="mb-4 fw-bold">Plan Your Route</h5>
+                <div class="mb-4">
+                    <label class="small text-secondary fw-bold mb-2">DESTINATION</label>
+                    <input type="text" class="hg-input" placeholder="e.g., Home, Office, Friend's house">
+                </div>
+                <div class="mb-4">
+                    <label class="small text-secondary fw-bold mb-2">TRAVEL MODE</label>
+                    <div class="d-flex gap-3">
+                        <div class="glass flex-fill p-3 text-center border-primary bg-primary bg-opacity-10 cursor-pointer hover-lift">
+                            <i class="fas fa-taxi mb-2 h4"></i><br><span class="small fw-bold">Cab</span>
+                        </div>
+                        <div class="glass flex-fill p-3 text-center cursor-pointer hover-lift">
+                            <i class="fas fa-walking mb-2 h4"></i><br><span class="small fw-bold">Walk</span>
+                        </div>
+                        <div class="glass flex-fill p-3 text-center cursor-pointer hover-lift">
+                            <i class="fas fa-bus mb-2 h4"></i><br><span class="small fw-bold">Transit</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <label class="small text-secondary fw-bold">ESTIMATED TRAVEL TIME</label>
+                        <span class="text-primary fw-bold" id="eta-value">20 Minutes</span>
+                    </div>
+                    <input type="range" class="form-range" min="5" max="120" step="5" value="20" id="eta-range">
+                </div>
+                <button class="hg-btn w-100 py-3 shadow-lg" id="btn-start-journey">Initialize Journey Shield</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <h6 class="text-secondary mb-3 fw-bold small">SAFETY TOOLS</h6>
+        <div class="glass p-4 mb-4">
+            <div class="tool-item d-flex align-items-center p-3 glass mb-3 hover-lift cursor-pointer" onclick="triggerFakeCall()">
+                <div class="icon-box bg-info bg-opacity-25 text-info me-3">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <div>
+                    <div class="fw-bold">Decoy Call</div>
+                    <div class="text-secondary x-small">Get out of awkward situations</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="glass p-4">
+            <h6 class="text-secondary x-small fw-bold mb-3">TIPS FOR A SAFE JOURNEY</h6>
+            <ul class="small text-secondary ps-3 mb-0">
+                <li class="mb-2">Always check the car plate before entering.</li>
+                <li class="mb-2">Keep your phone's battery above 20%.</li>
+                <li>The AI will call you if you deviate from the route.</li>
+            </ul>
+        </div>
+    </div>
+</div>

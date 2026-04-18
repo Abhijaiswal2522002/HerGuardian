@@ -28,7 +28,7 @@ namespace HerGuardian.Pages.Account
                 return Page();
             }
 
-            return RedirectToPage("/Login");
+            return RedirectToPage("Pages/Account/Login");
         }
     }
 }

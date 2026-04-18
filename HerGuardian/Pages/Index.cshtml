@@ -1,10 +1,441 @@
-﻿@page
+@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Dashboard Content -->
+<div id="tab-sos" class="tab-content active">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="m-0 h4">Safety Monitor</h2>
+        <div class="glass p-2 px-3 d-flex align-items-center" style="border-radius: 30px;">
+            <div class="bg-success rounded-circle me-2 pulse-small" style="width: 8px; height: 8px;"></div>
+            <span style="font-size: 12px; font-weight: 600;">System Online</span>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Center SOS (Mobile) / Left Side (Desktop) -->
+        <div class="col-lg-6">
+            <div class="glass p-5 d-flex flex-column align-items-center justify-content-center h-100">
+                <div class="sos-button-wrapper" id="sos-trigger">
+                    <div class="sos-rings"></div>
+                    <div class="sos-rings"></div>
+                    <div class="sos-rings"></div>
+                    <svg class="progress-ring" width="200" height="200">
+                        <circle class="progress-ring__circle" stroke="#ff4d4d" stroke-width="8" fill="transparent" r="90" cx="100" cy="100"/>
+                    </svg>
+                    <div class="sos-button pulse-red">SOS</div>
+                </div>
+                <p class="text-secondary mt-5 mb-1" style="font-size: 14px;">Press and hold for 1.5s to trigger</p>
+                <div id="sos-timer" class="d-none badge bg-danger p-2 px-3 mt-2" style="border-radius: 20px;">Alerting in 3...</div>
+            </div>
+        </div>
+
+        <!-- Right Side Stats & History (Desktop) -->
+        <div class="col-lg-6">
+            <div class="row gx-3">
+                <div class="col-sm-6 mb-3">
+                    <div class="glass stat-card h-100">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="icon-box bg-primary bg-opacity-25 text-primary">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <span class="text-secondary small fw-bold">Contacts</span>
+                        </div>
+                        <div class="h5 m-0">3 Verified</div>
+                    </div>
+                </div>
+                <div class="col-sm-6 mb-3">
+                    <div class="glass stat-card h-100">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="icon-box bg-secondary bg-opacity-25 text-secondary">
+                                <i class="fas fa-map-marker-alt" style="color: #a855f7"></i>
+                            </div>
+                            <span class="text-secondary small fw-bold">Live GPS</span>
+                        </div>
+                        <div class="h5 m-0">Active</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass p-4 h-100">
+                <div class="d-flex justify-content-between mb-4 align-items-center">
+                    <h6 class="m-0 fw-bold">Recent Activity</h6>
+                    <button class="btn btn-link link-primary p-0 text-decoration-none small">View All</button>
+                </div>
+                <div class="activity-list">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="rounded-circle bg-danger bg-opacity-10 text-danger d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px; flex-shrink: 0;">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div>
+                            <div class="small fw-bold">Emergency Alert Triggered</div>
+                            <div class="text-secondary small">Sector 4, New Delhi • Yesterday, 10:45 PM</div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="rounded-circle bg-success bg-opacity-10 text-success d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px; flex-shrink: 0;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                            <div class="small fw-bold">Safety Check-in: Home</div>
+                            <div class="text-secondary small">Park Avenue • Apr 18, 08:30 PM</div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px; flex-shrink: 0;">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div>
+                            <div class="small fw-bold">Verified Contact Added</div>
+                            <div class="text-secondary small">"Mom" accepted your invite • Apr 17</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div id="tab-contacts" class="tab-content">
+    <h3 class="mb-4">Trusted Contacts</h3>
+    
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <h6 class="text-secondary mb-3 fw-bold">VERIFIED NETWORK</h6>
+            <div class="glass p-4 mb-4">
+                <div class="contact-item d-flex align-items-center mb-4">
+                    <img src="https://ui-avatars.com/api/?name=Mom&background=6366f1&color=fff" class="rounded-circle me-3" width="55">
+                    <div class="flex-grow-1">
+                        <div class="fw-bold h6 m-0">Mom (Primary)</div>
+                        <div class="text-success small"><i class="fas fa-circle me-1" style="font-size: 8px;"></i> Online</div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm glass text-white p-2 px-3"><i class="fas fa-phone me-1"></i> Call</button>
+                        <button class="btn btn-sm glass text-white p-2 px-3"><i class="fas fa-location-arrow me-1"></i> Track</button>
+                    </div>
+                </div>
+                <hr class="border-white border-opacity-10 my-4">
+                <div class="contact-item d-flex align-items-center mb-4">
+                    <img src="https://ui-avatars.com/api/?name=Riya&background=a855f7&color=fff" class="rounded-circle me-3" width="55">
+                    <div class="flex-grow-1">
+                        <div class="fw-bold h6 m-0">Sister (Riya)</div>
+                        <div class="text-secondary small">Last active 10m ago</div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm glass text-white p-2 px-3"><i class="fas fa-phone me-1"></i> Call</button>
+                        <button class="btn btn-sm glass text-white p-2 px-3"><i class="fas fa-location-arrow me-1"></i> Track</button>
+                    </div>
+                </div>
+                
+                <h6 class="text-secondary mt-5 mb-3 fw-bold small">PENDING</h6>
+                <div class="contact-item d-flex align-items-center opacity-75">
+                    <img src="https://ui-avatars.com/api/?name=Friend&background=475569&color=fff" class="rounded-circle me-3" width="55">
+                    <div class="flex-grow-1">
+                        <div class="fw-bold h6 m-0 text-secondary">Aman (Friend)</div>
+                        <div class="text-warning small italic">Invite Sent - Awaiting confirmation</div>
+                    </div>
+                    <button class="btn btn-sm hg-btn py-1 px-4" style="font-size: 13px;">Remind</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <h6 class="text-secondary mb-3 fw-bold">EMERGENCY HELPLINES</h6>
+            <div class="glass p-4">
+                <div class="helpline-card glass p-3 border-danger mb-3 d-flex align-items-center justify-content-between">
+                    <div>
+                        <div class="text-danger h3 m-0">1091</div>
+                        <div class="small fw-bold">Women Helpline</div>
+                    </div>
+                    <button class="btn btn-danger rounded-circle p-3"><i class="fas fa-phone"></i></button>
+                </div>
+                <div class="helpline-card glass p-3 border-primary mb-3 d-flex align-items-center justify-content-between">
+                    <div>
+                        <div class="text-primary h3 m-0">100</div>
+                        <div class="small fw-bold">Police Emergency</div>
+                    </div>
+                    <button class="btn btn-primary rounded-circle p-3"><i class="fas fa-phone"></i></button>
+                </div>
+                <button class="btn glass w-100 text-white mt-2">Add Custom Helpline</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="tab-location" class="tab-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="m-0">Live Space Monitor</h3>
+        <div class="form-check form-switch glass p-2 px-4 d-flex align-items-center" style="border-radius: 30px;">
+            <input class="form-check-input me-3 mt-0" type="checkbox" id="live-share-toggle" checked>
+            <label class="form-check-label small fw-bold" for="live-share-toggle">Live Location Sharing</label>
+        </div>
+    </div>
+    
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div id="map" class="glass" style="height: 500px;"></div>
+        </div>
+        <div class="col-lg-4">
+            <div class="glass p-4 mb-4">
+                <h6 class="text-secondary fw-bold mb-3 small">CURRENT COORDINATES</h6>
+                <div class="row text-center g-0">
+                    <div class="col-6 border-end border-white border-opacity-10 pe-2">
+                        <div class="text-secondary x-small">LATITUDE</div>
+                        <div class="h5 m-0 mt-1">28.7041° N</div>
+                    </div>
+                    <div class="col-6 ps-2">
+                        <div class="text-secondary x-small">LONGITUDE</div>
+                        <div class="h5 m-0 mt-1">77.1025° E</div>
+                    </div>
+                </div>
+            </div>
+
+            <h6 class="text-secondary mb-3 fw-bold small">NEARBY SAFE ZONES</h6>
+            <div class="safe-zone-list">
+                <div class="glass p-3 mb-3 border-start border-4 border-success hover-lift cursor-pointer">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="fw-bold">Police Station - Sector 12</div>
+                            <div class="text-secondary small">400m away • Highly Rated</div>
+                        </div>
+                        <i class="fas fa-chevron-right text-secondary"></i>
+                    </div>
+                </div>
+                <div class="glass p-3 mb-3 border-start border-4 border-success hover-lift cursor-pointer">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="fw-bold">Public Library (24/7)</div>
+                            <div class="text-secondary small">650m away • CCTV Active</div>
+                        </div>
+                        <i class="fas fa-chevron-right text-secondary"></i>
+                    </div>
+                </div>
+                <div class="glass p-3 mb-3 border-start border-4 border-warning hover-lift cursor-pointer">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="fw-bold">Central Cafe</div>
+                            <div class="text-secondary small">850m away • Caution Advised</div>
+                        </div>
+                        <i class="fas fa-chevron-right text-secondary"></i>
+                    </div>
+                </div>
+            </div>
+            <button class="hg-btn w-100 mt-2">Update Safety Scores</button>
+        </div>
+    </div>
+</div>
+
+<div id="tab-journey" class="tab-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="m-0">Journey Shield</h3>
+        <div class="glass p-2 px-3 small text-primary fw-bold">Active Shield</div>
+    </div>
+    
+    <div class="row g-4 justify-content-center">
+        <!-- Center Journey UI (Desktop) -->
+        <div class="col-lg-6">
+            <!-- Active Journey UI -->
+            <div id="active-journey" class="d-none">
+                <div class="glass p-5 text-center mb-4 border-primary border-2">
+                    <div class="display-4 text-primary fw-bold mb-2">18:42</div>
+                    <div class="text-secondary small fw-bold text-uppercase mb-4">Target Arrival Time</div>
+                    <div class="progress mb-4 bg-dark" style="height: 12px; border-radius: 10px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 65%;"></div>
+                    </div>
+                    <div class="d-flex justify-content-center gap-4 mb-4">
+                        <div>
+                            <div class="text-secondary x-small fw-bold">DESTINATION</div>
+                            <div class="h6">Home</div>
+                        </div>
+                        <div class="border-end border-white border-opacity-10"></div>
+                        <div>
+                            <div class="text-secondary x-small fw-bold">METHOD</div>
+                            <div class="h6">Uber Taxi</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <button class="hg-btn w-100 py-3" style="background: var(--safe-green)" id="btn-safe">I'm Safe - End</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn glass w-100 text-white py-3 shadow-sm" id="btn-extend">+10 Min Extension</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Start Journey Form -->
+            <div id="journey-form">
+                <div class="glass p-5">
+                    <h5 class="mb-4 fw-bold">Plan Your Route</h5>
+                    <div class="mb-4">
+                        <label class="small text-secondary fw-bold mb-2">DESTINATION</label>
+                        <input type="text" class="hg-input" placeholder="e.g., Home, Office, Friend's house">
+                    </div>
+                    <div class="mb-4">
+                        <label class="small text-secondary fw-bold mb-2">TRAVEL MODE</label>
+                        <div class="d-flex gap-3">
+                            <div class="glass flex-fill p-3 text-center border-primary bg-primary bg-opacity-10 cursor-pointer hover-lift">
+                                <i class="fas fa-taxi mb-2 h4"></i><br><span class="small fw-bold">Cab</span>
+                            </div>
+                            <div class="glass flex-fill p-3 text-center cursor-pointer hover-lift">
+                                <i class="fas fa-walking mb-2 h4"></i><br><span class="small fw-bold">Walk</span>
+                            </div>
+                            <div class="glass flex-fill p-3 text-center cursor-pointer hover-lift">
+                                <i class="fas fa-bus mb-2 h4"></i><br><span class="small fw-bold">Transit</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="small text-secondary fw-bold">ESTIMATED TRAVEL TIME</label>
+                            <span class="text-primary fw-bold" id="eta-value">20 Minutes</span>
+                        </div>
+                        <input type="range" class="form-range" min="5" max="120" step="5" value="20" id="eta-range">
+                    </div>
+                    <button class="hg-btn w-100 py-3 shadow-lg" id="btn-start-journey">Initialize Journey Shield</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <h6 class="text-secondary mb-3 fw-bold small">SAFETY TOOLS</h6>
+            <div class="glass p-4 mb-4">
+                <div class="tool-item d-flex align-items-center p-3 glass mb-3 hover-lift cursor-pointer" onclick="triggerFakeCall()">
+                    <div class="icon-box bg-info bg-opacity-25 text-info me-3">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold">Decoy Call</div>
+                        <div class="text-secondary x-small">Get out of awkward situations</div>
+                    </div>
+                </div>
+                <div class="tool-item d-flex align-items-center p-3 glass hover-lift cursor-pointer" id="timer-tool-btn">
+                    <div class="icon-box bg-warning bg-opacity-25 text-warning me-3">
+                        <i class="fas fa-stopwatch"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold">A.I. Check-in</div>
+                        <div class="text-secondary x-small">Auto-alert if you're inactive</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glass p-4">
+                <h6 class="text-secondary x-small fw-bold mb-3">TIPS FOR A SAFE JOURNEY</h6>
+                <ul class="small text-secondary ps-3 mb-0">
+                    <li class="mb-2">Always check the car plate before entering.</li>
+                    <li class="mb-2">Keep your phone's battery above 20%.</li>
+                    <li>The AI will call you if you deviate from the route.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="tab-settings" class="tab-content">
+    <h3 class="mb-4">System Console</h3>
+    
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="glass p-4 mb-4">
+                <h6 class="text-secondary fw-bold mb-4 small">SECURITY PROTOCOLS</h6>
+                
+                <div class="setting-row d-flex align-items-center justify-content-between mb-4 p-3 glass">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-box bg-danger bg-opacity-10 text-danger me-4">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <div class="h6 m-0 fw-bold">Instant Emergency Call</div>
+                            <div class="text-secondary small">Dial 1091 automatically after SOS countdown</div>
+                        </div>
+                    </div>
+                    <div class="form-check form-switch h4 m-0">
+                        <input class="form-check-input" type="checkbox" checked>
+                    </div>
+                </div>
+
+                <div class="setting-row d-flex align-items-center justify-content-between mb-4 p-3 glass">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-box bg-primary bg-opacity-10 text-primary me-4">
+                            <i class="fas fa-mask"></i>
+                        </div>
+                        <div>
+                            <div class="h6 m-0 fw-bold">App Chameleon Mode</div>
+                            <div class="text-secondary small">Change app icon and name to "Calculator"</div>
+                        </div>
+                    </div>
+                    <div class="form-check form-switch h4 m-0">
+                        <input class="form-check-input" type="checkbox">
+                    </div>
+                </div>
+
+                <div class="setting-row d-flex align-items-center justify-content-between p-3 glass">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-box bg-success bg-opacity-10 text-success me-4">
+                            <i class="fas fa-satellite"></i>
+                        </div>
+                        <div>
+                            <div class="h6 m-0 fw-bold">Deep Location Tracking</div>
+                            <div class="text-secondary small">Update location every 30 seconds in background</div>
+                        </div>
+                    </div>
+                    <div class="form-check form-switch h4 m-0">
+                        <input class="form-check-input" type="checkbox" checked>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <h6 class="text-secondary mb-3 fw-bold small">COMMUNITY REPORTING</h6>
+            <div class="glass p-4 mb-4 text-center hover-lift cursor-pointer" onclick="showIncidentReport()">
+                <div class="icon-box mx-auto bg-secondary bg-opacity-10 text-secondary mb-3" style="width: 60px; height: 60px;">
+                    <i class="fas fa-bullhorn h4 m-0" style="color: #a855f7"></i>
+                </div>
+                <h6 class="fw-bold">Submit Safety Report</h6>
+                <p class="text-secondary small mb-3">Report harassment, poor lighting, or unsafe transport anonymously.</p>
+                <div class="text-primary small fw-bold">Start Filing <i class="fas fa-arrow-right ms-1"></i></div>
+            </div>
+
+            <div class="glass p-4 text-center">
+                <div class="small text-secondary mb-1">DATA PRIVACY</div>
+                <p class="x-small text-secondary opacity-75 mb-0">Your location data is end-to-end encrypted and shared only with your chosen contacts during emergencies.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fake Call Interface -->
+<div class="fake-call-overlay" id="fake-call-screen">
+    <div class="caller-avatar shadow-lg pulse-blue">
+        <i class="fas fa-user"></i>
+    </div>
+    <h1 id="fake-caller-name" class="display-5 fw-bold mt-2">Mom</h1>
+    <p class="text-secondary h5">Incoming Secure Call...</p>
+    
+    <div class="mt-5 p-4 w-100" style="max-width: 600px;">
+        <p class="x-small text-secondary mb-3 text-center text-uppercase fw-bold tracking-widest">TAP PHRASE TO SIMULATE SPEECH</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <div class="glass p-3 px-4 hover-lift cursor-pointer">"Hey Mom, I'm almost home!"</div>
+            <div class="glass p-3 px-4 hover-lift cursor-pointer">"I'm at the station, see you now."</div>
+            <div class="glass p-3 px-4 hover-lift cursor-pointer">"Yeah, I'm with a group of friends."</div>
+        </div>
+    </div>
+
+    <div class="call-actions" style="max-width: 500px;">
+        <div class="call-btn bg-danger shadow-lg" onclick="endFakeCall()">
+            <i class="fas fa-phone-slash"></i>
+        </div>
+        <div class="call-btn bg-success shadow-lg">
+            <i class="fas fa-phone"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
